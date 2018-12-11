@@ -1,0 +1,5 @@
+*.tar
+/data/*
+/webface/*
+*.rar
+/model/*
