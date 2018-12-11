@@ -1,3 +1,3 @@
-# FaceVerification
-# machine learning final project
-
+# Face Verification
+## Machine Learning final project
+## Language : python3
