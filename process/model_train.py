@@ -1,24 +1,14 @@
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from torch.autograd import Variable
 from torch.optim.lr_scheduler import StepLR
 import pickle
-import torch.utils.data as data
+from process.sphere_net import *
 import torchvision
 
 
-class NaiveNet(nn.Module):
-    # input size 148*148, ouput 10575 classes
-    def __init__(self):
-        super(NaiveNet, self).__init__()
-        pass
-    def forward(self, x):
-        pass
-
-
 def accuracy(outputs, labels):
+    outputs = outputs[0]#0:cos
     _, predicted = torch.max(outputs.data, 1)
     correct = (predicted == labels.data).sum()
     return correct
@@ -52,13 +42,13 @@ def train():
     if torch.cuda.is_available() is False:
         use_cuda = False
     # 这里改成任意的网络
-    net = NaiveNet()
+    net = SphereNet(train_flag=True)
     if use_cuda:
         net = net.cuda()
     # 定义优化器
     optimizer = torch.optim.SGD(net.parameters(), lr=lr, momentum=0.9, weight_decay=0.00001)
     # 定义loss函数
-    loss_function = nn.CrossEntropyLoss()
+    loss_function = AngleLoss()
     # 训练集
     train_path = '../data/train'
     train_set = torchvision.datasets.ImageFolder(train_path)
@@ -118,7 +108,6 @@ def train():
         pickle.dump(dic, f)
 
 
-
-
-
+if __name__ == "__main__":
+    train()
 
