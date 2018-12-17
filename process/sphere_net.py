@@ -133,7 +133,7 @@ class SphereNet(nn.Module):
         super(SphereNet, self).__init__()
         self.train_flag = train_flag
         # input size 3x148x148
-        self.conv1 = nn.Conv2d(3, 64, 3, 2, 1)# size to 64x96x96
+        self.conv1 = nn.Conv2d(3, 64, 3, 2, 1)# size to 64x74x74
         self.bn1 = nn.BatchNorm2d(64)
         self.relu1 = nn.ReLU(inplace=True)
 
@@ -141,7 +141,7 @@ class SphereNet(nn.Module):
                                        planes=64)
 
         # second
-        self.conv2 = nn.Conv2d(64, 128, 3, 2, 1)# size to 128x48x48
+        self.conv2 = nn.Conv2d(64, 128, 3, 2, 1)# size to 128x37x37
         self.bn2 = nn.BatchNorm2d(128)
         self.relu2 = nn.ReLU(inplace=True)
 
@@ -149,7 +149,7 @@ class SphereNet(nn.Module):
                                        planes=128)
 
         # thrid
-        self.conv3 = nn.Conv2d(128, 256, 3, 2, 1)# size to 256x24x24
+        self.conv3 = nn.Conv2d(128, 256, 3, 2, 1)# size to 256x19x19
         self.bn3 = nn.BatchNorm2d(256)
         self.relu3 = nn.ReLU(inplace=True)
 
@@ -157,7 +157,7 @@ class SphereNet(nn.Module):
                                        planes=256)
 
         # forth
-        self.conv4 = nn.Conv2d(256, 512, 3, 2, 1)# size to 512x12x12
+        self.conv4 = nn.Conv2d(256, 512, 3, 2, 1)# size to 512x10x10
         self.bn4 = nn.BatchNorm2d(512)
         self.relu4 = nn.ReLU(inplace=True)
 
@@ -166,7 +166,7 @@ class SphereNet(nn.Module):
                                        planes=512)
         # fifth
         # self.fc1 = nn.Linear(512 * 12 * 12, 512)
-        self.fc1 = nn.AvgPool2d(12)
+        self.fc1 = nn.AvgPool2d(10)
 
         self.angleLayer = AngleLinear(512, 10575)
 
