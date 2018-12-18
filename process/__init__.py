@@ -1,3 +1,3 @@
-from process.face_alignment import *
-from process.model_train import *
-from process.sphere_net import *
+from .face_alignment import *
+from .model_train import *
+from .sphere_net import *

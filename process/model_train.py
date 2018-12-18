@@ -5,6 +5,7 @@ from torch.optim.lr_scheduler import StepLR
 import pickle
 from sphere_net import *
 import torchvision
+from torchvision.transforms import *
 
 
 def accuracy(outputs, labels):
@@ -37,7 +38,7 @@ def validate(net, loader, use_cuda=False):
 def train():
     lr = 0.01
     batch_size = 128
-    use_cuda = True
+    use_cuda = False
     epochs = 50
     if torch.cuda.is_available() is False:
         use_cuda = False
@@ -51,13 +52,21 @@ def train():
     loss_function = AngleLoss()
     # 训练集
     train_path = '../data/train'
-    train_set = torchvision.datasets.ImageFolder(train_path)
+    print("loading training set.")
+
+    train_trainsform = transforms.Compose([transforms.RandomHorizontalFlip(p=1),
+                                           transforms.ToTensor(),
+                                           transforms.Normalize([0.5, 0.5, 0.5], [1, 1, 1])])
+    train_set = torchvision.datasets.ImageFolder(train_path, transform=train_trainsform)
     train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True)
     # 学习速率调节器
     lr_scheduler = StepLR(optimizer, step_size=15, gamma=0.1)
     # 测试数据集
     validating_path = '../data/test'
-    validating_set = torchvision.datasets.ImageFolder(validating_path)
+    print("loading testing set.")
+    test_trainsform = transforms.Compose([transforms.ToTensor(),
+                                          transforms.Normalize([0.5, 0.5, 0.5], [1, 1, 1])])
+    validating_set = torchvision.datasets.ImageFolder(validating_path, transform=test_trainsform)
     validation_loader = DataLoader(validating_set, batch_size=batch_size)
     # 开始训练
     loss_save = []
