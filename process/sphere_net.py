@@ -165,8 +165,8 @@ class SphereNet(nn.Module):
 
                                        planes=512)
         # fifth
-        # self.fc1 = nn.Linear(512 * 12 * 12, 512)
-        self.fc1 = nn.AvgPool2d(10)
+        self.fc1 = nn.Linear(512 * 10 * 10, 512)
+        # self.fc1 = nn.AvgPool2d(10)
 
         self.angleLayer = AngleLinear(512, 10575)
 

@@ -37,7 +37,7 @@ def validate(net, loader, use_cuda=False):
 
 def train():
     lr = 0.01
-    batch_size = 128
+    batch_size = 64
     use_cuda = False
     epochs = 50
     if torch.cuda.is_available() is False:
@@ -97,7 +97,7 @@ def train():
             running_loss += loss.item()
             count += size
             correct_count += accuracy(outputs, b_y).item()
-            if (i + 1) % 10 == 0:
+            if (i + 1) % 5 == 0:
                 acc = validate(net, validation_loader, True)
                 print('[ %d-%d ] loss: %.9f, \n'
                       'training accuracy: %.6f, \n'
