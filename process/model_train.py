@@ -3,7 +3,7 @@ from torch.utils.data import DataLoader
 from torch.autograd import Variable
 from torch.optim.lr_scheduler import StepLR
 import pickle
-from process.sphere_net import *
+from sphere_net import *
 import torchvision
 
 
